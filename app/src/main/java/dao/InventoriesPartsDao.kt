@@ -12,7 +12,7 @@ interface InventoriesPartsDao {
     @Query("SELECT * FROM InventoriesParts WHERE InventoryID=(:inventoryID)")
     fun getAllPartsForInventory(inventoryID: Int): List<InventoriesParts>
 
-    @Query("SELECT * FROM InventoriesParts WHERE id=(:inventoryPartId)")
+    @Query("SELECT * FROM InventoriesParts WHERE id = :inventoryPartId")
     fun getInventoryPartById(inventoryPartId: Int): InventoriesParts
 
     @Insert

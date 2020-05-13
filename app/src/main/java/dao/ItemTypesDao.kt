@@ -13,7 +13,7 @@ interface ItemTypesDao {
     @Query("SELECT * FROM ItemTypes")
     fun getAllItemTypes(): List<ItemTypes>
 
-    @Query("SELECT * FROM ItemTypes WHERE id = (:itemTypeId)")
+    @Query("SELECT * FROM ItemTypes WHERE id = :itemTypeId")
     fun getItemTypeById(itemTypeId: Int): List<ItemTypes>
 
     @Insert

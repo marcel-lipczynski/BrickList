@@ -15,7 +15,7 @@ interface PartsDao {
     @Query("SELECT * FROM Parts WHERE id IN (:partIds)")
     fun getPartsByIds(partIds: IntArray): List<Parts>
 
-    @Query("SELECT * FROM Parts WHERE id = (:partId)")
+    @Query("SELECT * FROM Parts WHERE id = :partId")
     fun getPartById(partId: Int): Parts
 
     @Insert

@@ -15,7 +15,7 @@ interface CodesDao {
     @Query("SELECT * FROM Codes WHERE id IN (:codesIDs)")
     fun getCodesByIds(codesIDs: IntArray): List<Codes>
 
-    @Query("SELECT * FROM Codes WHERE id = (:codeID)")
+    @Query("SELECT * FROM Codes WHERE id = :codeID")
     fun getCodeById(codeID: Int): Codes
 
     @Insert

@@ -15,7 +15,7 @@ interface InventoriesDao {
     @Query("SELECT * FROM Inventories WHERE id IN(:inventoriesIDs)")
     fun getInventoriesByIds(inventoriesIDs: IntArray): List<Inventories>
 
-    @Query("SELECT * FROM Inventories WHERE id = (:inventoryID)")
+    @Query("SELECT * FROM Inventories WHERE id = :inventoryID")
     fun getInventoryById(inventoryID: Int): Inventories
 
     @Insert

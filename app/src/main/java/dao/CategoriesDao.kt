@@ -15,7 +15,7 @@ interface CategoriesDao {
     @Query("SELECT * FROM Categories WHERE id IN (:categoriesIDs)")
     fun getCategoriesByIds(categoriesIDs: IntArray): List<Categories>
 
-    @Query("SELECT * FROM Categories WHERE id = (:categoryID)")
+    @Query("SELECT * FROM Categories WHERE id = :categoryID")
     fun getCategoryById(categoryID: Int): Categories
 
     @Insert
