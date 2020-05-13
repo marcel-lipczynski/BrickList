@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SQLAndroidSettings">
+    <option name="databases">
+      <map>
+        <entry key="BrickListDatabase_C:\Users\lipcz\Desktop\BrickList\AndroidSqlEditorDatabases\">
+          <value>
+            <list>
+              <option value="6a7ddb93" />
+              <option value="/databases/BrickListDatabase" />
+              <option value="BrickListDatabase" />
+              <option value="BrickListDatabase" />
+              <option value="false" />
+              <option value="com.example.bricklist" />
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="storageVersion" value="2" />
+  </component>
+</project>

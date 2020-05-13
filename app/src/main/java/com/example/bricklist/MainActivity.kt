@@ -21,10 +21,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Observable.fromCallable{
+        Observable.fromCallable {
             database = BrickListDatabase.getDatabase(this)
 
-        }.doOnNext{
+        }.doOnNext {
             database!!.inventoriesDao().insertInventories(inventory)
             newInventory = database!!.inventoriesDao().getInventoryById(inventoryID = inventory.id)
             Log.i("Inventory", newInventory!!.name)
