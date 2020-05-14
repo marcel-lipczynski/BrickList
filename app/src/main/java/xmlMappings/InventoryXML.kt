@@ -6,8 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 
 @JacksonXmlRootElement(localName = "INVENTORY")
 data class InventoryXML(
-
-    @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "ITEM")
-    val Item: List<ItemXML>
+    @JacksonXmlElementWrapper(useWrapping = false)
+    val ITEM: List<ItemXML>
 )
