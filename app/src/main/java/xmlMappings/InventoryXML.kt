@@ -8,5 +8,5 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 data class InventoryXML(
     @JacksonXmlProperty(localName = "ITEM")
     @JacksonXmlElementWrapper(useWrapping = false)
-    val ITEM: List<ItemXML>
+    val item: List<ItemXML>
 )

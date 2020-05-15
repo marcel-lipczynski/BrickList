@@ -6,12 +6,12 @@ import java.lang.reflect.Constructor
 
 
 data class ItemXML(
-    @JacksonXmlProperty(localName = "ITEMTYPE") val ITEMTYPE: String,
-    @JacksonXmlProperty(localName = "ITEMID") val ITEMID: String,
-    @JacksonXmlProperty(localName = "QTY") val QTY: Int,
-    @JacksonXmlProperty(localName = "COLOR") val COLOR: Int,
-    @JacksonXmlProperty(localName = "EXTRA") val EXTRA: String,
-    @JacksonXmlProperty(localName = "ALTERNATE") val ALTERNATE: String,
-    @JacksonXmlProperty(localName = "MATCHID") val MATCHID: Int,
-    @JacksonXmlProperty(localName = "COUNTERPART") val COUNTERPART: String
+    @JacksonXmlProperty(localName = "ITEMTYPE") val itemType: String,
+    @JacksonXmlProperty(localName = "ITEMID") val itemId: String,
+    @JacksonXmlProperty(localName = "QTY") val qty: Int,
+    @JacksonXmlProperty(localName = "COLOR") val color: Int,
+    @JacksonXmlProperty(localName = "EXTRA") val extra: String,
+    @JacksonXmlProperty(localName = "ALTERNATE") val alternate: String,
+    @JacksonXmlProperty(localName = "MATCHID") val matchId: Int,
+    @JacksonXmlProperty(localName = "COUNTERPART") val counterpart: String
 )
