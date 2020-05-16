@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BrickList</string>
+    <string name="nazwa_projektu">Nazwa projektu</string>
+    <string name="numer_projektu">Numer projektu</string>
+    <string name="sprawdz">Sprawdź</string>
+    <string name="dodaj">Dodaj</string>
 </resources>

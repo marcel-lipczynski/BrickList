@@ -2,17 +2,16 @@ package com.example.bricklist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.fasterxml.jackson.databind.DeserializationFeature
+
 import com.fasterxml.jackson.databind.MapperFeature
-import com.fasterxml.jackson.databind.PropertyNamingStrategy
-import com.fasterxml.jackson.databind.SerializationFeature
+
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 
 import com.github.kittinunf.fuel.httpGet
 import database.BrickListDatabase
 
-import entities.Inventories
+
 import io.reactivex.Observable
 import com.github.kittinunf.result.Result;
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         xmlMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
             .configure(MapperFeature.USE_GETTERS_AS_SETTERS, false)
-        
+
 
 //        Observable.fromCallable {
 //            database = BrickListDatabase.getDatabase(this)
