@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 
 import com.github.kittinunf.fuel.httpGet
@@ -25,25 +26,19 @@ class MainActivity : AppCompatActivity() {
 
     private var database: BrickListDatabase? = null
     private var inventoryXml: InventoryXML? = null
-    private val xmlMapper = XmlMapper()
+    private val jacksonXmlModule: JacksonXmlModule =
+        JacksonXmlModule().apply { setDefaultUseWrapper(false) }
+    private val xmlMapper = XmlMapper(jacksonXmlModule)
     private var pathFile = ""
-    private var xmlString: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        xmlMapper.setDefaultUseWrapper(false)
-        xmlMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
-        xmlMapper.configure(MapperFeature.USE_GETTERS_AS_SETTERS, false)
-        xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        xmlMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
-        xmlMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true)
-        xmlMapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING,true)
-        xmlMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
 
-        xmlMapper.enable(SerializationFeature.INDENT_OUTPUT)
-        xmlMapper.enable(SerializationFeature.EAGER_SERIALIZER_FETCH)
+        xmlMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
+            .configure(MapperFeature.USE_GETTERS_AS_SETTERS, false)
+        
 
 //        Observable.fromCallable {
 //            database = BrickListDatabase.getDatabase(this)
@@ -93,7 +88,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         httpAsync.join()
-
 
 
     }
