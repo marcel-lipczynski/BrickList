@@ -31,4 +31,6 @@
     <string name="dontShowArchive">Dont show archive</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
+    <string name="project_number">Project number</string>
+    <string name="project_name">Project name</string>
 </resources>

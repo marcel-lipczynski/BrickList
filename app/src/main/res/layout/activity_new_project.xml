@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/numer_projektu"
+        android:hint="@string/project_number"
         android:inputType="textPersonName" />
 
     <EditText
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/nazwa_projektu"
+        android:hint="@string/project_name"
         android:inputType="textPersonName"
         android:importantForAutofill="no" />
 

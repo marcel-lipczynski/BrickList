@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.preference.PreferenceManager
 
 import com.fasterxml.jackson.databind.MapperFeature
@@ -22,6 +23,7 @@ import io.reactivex.Observable
 import com.github.kittinunf.result.Result;
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 import util.XmlParser
 import xmlMappings.InventoryXML
 import java.io.File
@@ -43,6 +45,11 @@ class MainActivity : AppCompatActivity() {
 
         xmlMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
             .configure(MapperFeature.USE_GETTERS_AS_SETTERS, false)
+
+        val createNewProjectFab: View = findViewById(R.id.addProject)
+        createNewProjectFab.setOnClickListener {
+            startActivity(Intent(this, NewProjectActivity::class.java))
+        }
 
 
 //        Observable.fromCallable {
@@ -96,8 +103,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val intent = Intent(this, ListOfBricksActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(this, ListOfBricksActivity::class.java)
+//        startActivity(intent)
 
 
     }
