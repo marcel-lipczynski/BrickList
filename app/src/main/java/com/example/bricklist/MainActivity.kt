@@ -95,6 +95,11 @@ class MainActivity : AppCompatActivity() {
         httpAsync.join()
 
 
+
+        val intent = Intent(this, ListOfBricksActivity::class.java)
+        startActivity(intent)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
