@@ -14,17 +14,17 @@ import kotlinx.android.synthetic.main.activity_list_of_bricks.*
 
 class ListOfBricksActivity : AppCompatActivity() {
 
-
+    private val brickListItems: ArrayList<BrickItem> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_bricks)
 
-        val items: ArrayList<BrickItem> = ArrayList()
-        items.add(BrickItem("", 1, 3, "BLUE", "2 x 3 BRICK"))
+
+        brickListItems.add(BrickItem("", 1, 3, "BLUE", "2 x 3 BRICK"))
 
         BrickListRecyclerView.layoutManager = LinearLayoutManager(this)
-        BrickListRecyclerView.adapter = BrickListAdapter(items, this)
+        BrickListRecyclerView.adapter = BrickListAdapter(brickListItems, this)
 
     }
 

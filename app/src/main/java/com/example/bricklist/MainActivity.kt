@@ -1,5 +1,6 @@
 package com.example.bricklist
 
+import adapters.InventoryListAdapter
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.fasterxml.jackson.databind.MapperFeature
 
@@ -21,6 +23,7 @@ import database.BrickListDatabase
 
 import io.reactivex.Observable
 import com.github.kittinunf.result.Result;
+import entities.Inventories
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -38,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     private val xmlMapper = XmlMapper(jacksonXmlModule)
     private var pathFile = ""
 
+    private val inventories: ArrayList<Inventories> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +55,12 @@ class MainActivity : AppCompatActivity() {
         createNewProjectFab.setOnClickListener {
             startActivity(Intent(this, NewProjectActivity::class.java))
         }
+
+        inventories.add(Inventories(1,"Wozek widlowy", 1, 1))
+
+        inventoriesRecyclerView.layoutManager = LinearLayoutManager(this)
+        inventoriesRecyclerView.adapter = InventoryListAdapter(inventories, this)
+
 
 
 //        Observable.fromCallable {
