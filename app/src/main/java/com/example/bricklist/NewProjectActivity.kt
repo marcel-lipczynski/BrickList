@@ -42,6 +42,9 @@ class NewProjectActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_project)
         title = "New project"
 
+
+        brickListDatabse = BrickListDatabase.getDatabase(this)
+
         addButton.isEnabled = false
         checkButton.isEnabled = false
 
@@ -135,13 +138,11 @@ class NewProjectActivity : AppCompatActivity() {
         val itemsArray = inventoryXml?.item
 
         Observable.fromCallable {
-            brickListDatabse = BrickListDatabase.getDatabase(this)
+//            brickListDatabse = BrickListDatabase.getDatabase(this)
         }.doOnNext {
             brickListDatabse!!.inventoriesDao().insertInventories(newInventory)
             val insertedInventoryID =
                 brickListDatabse!!.inventoriesDao().getInventoryByName(projectName).id
-//            Log.i("Inventory", newInventory.name)
-
 
 
             if (itemsArray != null) {
@@ -160,7 +161,13 @@ class NewProjectActivity : AppCompatActivity() {
                             )
                         )
                 }
-                Log.i("SUCCESS", "INVENTORY ADDED TO DATABASE!")
+                runOnUiThread{
+                    Toast.makeText(
+                        this,
+                        "Project successfully added",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
 
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
