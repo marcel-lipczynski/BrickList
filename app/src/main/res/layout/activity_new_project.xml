@@ -35,13 +35,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onCheckButtonClick"
             android:text="@string/check" />
 
         <Button
             android:id="@+id/addButton"
+            android:enabled="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onAddButtonClick"
             android:text="@string/add" />
     </LinearLayout>
 

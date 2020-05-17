@@ -2,10 +2,13 @@ package adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -28,6 +31,13 @@ class BrickListAdapter(private val brickItems: ArrayList<BrickItem>, private val
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BrickListViewHolder, position: Int) {
+
+        if (brickItems[position].actualBrickQuantity == brickItems[position].brickQuantity) {
+            holder.brickItemLinearLayout.setBackgroundColor(Color.GREEN)
+        } else {
+            holder.brickItemLinearLayout.setBackgroundColor(Color.WHITE)
+        }
+
         Glide.with(context)
             .load("https://images.genius.com/c745ae8eec9dd6000f52a07aa84e4457.1000x1000x1.jpg")
             .into(holder.brickImage)
@@ -35,6 +45,31 @@ class BrickListAdapter(private val brickItems: ArrayList<BrickItem>, private val
         holder.brickColor.text = brickItems[position].brickColor
         holder.bricksQuantity.text =
             "${brickItems[position].actualBrickQuantity} of ${brickItems[position].brickQuantity}"
+        holder.plus.setOnClickListener {
+            if (brickItems[position].actualBrickQuantity + 1 <= brickItems[position].brickQuantity) {
+                brickItems[position].actualBrickQuantity += 1
+            }
+            if (brickItems[position].actualBrickQuantity == brickItems[position].brickQuantity) {
+                holder.brickItemLinearLayout.setBackgroundColor(Color.GREEN)
+            } else {
+                holder.brickItemLinearLayout.setBackgroundColor(Color.WHITE)
+            }
+            holder.bricksQuantity.text =
+                "${brickItems[position].actualBrickQuantity} of ${brickItems[position].brickQuantity}"
+        }
+
+        holder.minus.setOnClickListener {
+            if (brickItems[position].actualBrickQuantity - 1 >= 0) {
+                brickItems[position].actualBrickQuantity -= 1
+            }
+            if (brickItems[position].actualBrickQuantity == brickItems[position].brickQuantity) {
+                holder.brickItemLinearLayout.setBackgroundColor(Color.GREEN)
+            } else {
+                holder.brickItemLinearLayout.setBackgroundColor(Color.WHITE)
+            }
+            holder.bricksQuantity.text =
+                "${brickItems[position].actualBrickQuantity} of ${brickItems[position].brickQuantity}"
+        }
     }
 
 
@@ -46,4 +81,7 @@ class BrickListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val brickName: TextView = view.brickName
     val bricksQuantity: TextView = view.bricksQuantity
     val brickColor: TextView = view.brickColor
+    val plus: Button = view.plus
+    val minus: Button = view.minus
+    val brickItemLinearLayout: LinearLayout = view.brickItemLinearLayout
 }
