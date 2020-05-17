@@ -152,11 +152,11 @@ class NewProjectActivity : AppCompatActivity() {
                             InventoriesParts(
                                 inventoryID = insertedInventoryID,
                                 typeID = typeID,
-                                itemID = item.itemId.toInt(),
+                                itemID = item.itemId,
                                 quantitiyInSet = item.qty,
                                 quantitiyInStore = 0,
                                 colorID = item.color,
-                                extra = item.extra.toInt()
+                                extra = item.extra
                             )
                         )
                 }
