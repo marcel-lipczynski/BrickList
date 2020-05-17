@@ -33,7 +33,7 @@ class InventoryListAdapter(
         holder.inventoryItemLayout.setOnClickListener{
             Toast.makeText(context, inventories[position].toString(), Toast.LENGTH_LONG).show()
             val i = Intent(context, ListOfBricksActivity::class.java)
-            i.putExtra("position", position)
+            i.putExtra("inventoryId", inventories[position].id)
             holder.inventoryItemLayout.context.startActivity(i)
         }
     }

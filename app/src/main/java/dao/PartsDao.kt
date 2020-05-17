@@ -15,6 +15,9 @@ interface PartsDao {
     @Query("SELECT * FROM Parts WHERE id IN (:partIds)")
     fun getPartsByIds(partIds: IntArray): List<Parts>
 
+    @Query("SELECT Name FROM Parts WHERE Code = :code")
+    fun getPartNameByPartCode(code: String): String
+
     @Query("SELECT * FROM Parts WHERE id = :partId")
     fun getPartById(partId: Int): Parts
 

@@ -35,7 +35,7 @@ abstract class BrickListDatabase : RoomDatabase() {
                         context.applicationContext,
                         BrickListDatabase::class.java,
                         "BrickListDatabase"
-                    ).createFromAsset("BrickList.db").fallbackToDestructiveMigration().build()
+                    ).createFromAsset("BrickList.db").build()
                 INSTANCE = instance
                 return instance
             }

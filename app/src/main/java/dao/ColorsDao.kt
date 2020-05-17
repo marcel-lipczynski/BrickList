@@ -15,6 +15,9 @@ interface ColorsDao {
     @Query("SELECT * FROM Colors WHERE id IN (:colorsIDs)")
     fun getColorsByIds(colorsIDs: IntArray): List<Colors>
 
+    @Query("SELECT Name FROM Colors WHERE Code = :code")
+    fun getColorByCodeFromXML(code: Int): String
+
     @Query("SELECT * FROM Colors WHERE id = :colorID")
     fun getColorById(colorID: Int): Colors
 

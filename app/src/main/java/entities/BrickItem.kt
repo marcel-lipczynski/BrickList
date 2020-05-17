@@ -5,5 +5,5 @@ data class BrickItem(
     val brickQuantity: Int,
     var actualBrickQuantity: Int,
     val brickColor: String,
-    val brickName: String
+    val brickName: String?
 )
