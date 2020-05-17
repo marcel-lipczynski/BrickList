@@ -18,6 +18,9 @@ interface InventoriesDao {
     @Query("SELECT * FROM Inventories WHERE id = :inventoryID")
     fun getInventoryById(inventoryID: Int): Inventories
 
+    @Query("SELECT * FROM Inventories WHERE name = :inventoryName")
+    fun getInventoryByName(inventoryName: String): Inventories
+
     @Insert
     fun insertInventories(vararg inventories: Inventories)
 

@@ -15,6 +15,12 @@ import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
+import database.BrickListDatabase
+import entities.Inventories
+import entities.InventoriesParts
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new_project.*
 import util.XmlParser
 import xmlMappings.InventoryXML
@@ -22,6 +28,7 @@ import java.io.File
 
 class NewProjectActivity : AppCompatActivity() {
 
+    private var brickListDatabse: BrickListDatabase? = null
     private var sharedPrefs: SharedPreferences? = null
     private var prefixURL: String? = null
     private var inventoryXml: InventoryXML? = null
@@ -103,25 +110,7 @@ class NewProjectActivity : AppCompatActivity() {
                         println(data)
 
                         inventoryXml = xmlMapper.readValue(data, InventoryXML::class.java)
-
-
-//                        //reading value from Xml file fetched from server
-//                        inventoryXml = xmlMapper.readValue(data, InventoryXML::class.java)
-//
-//                        //path to com.example.bricklist
-//                        pathFile = filesDir.absolutePath + "/inventory3.xml"
-//
-//                        XmlParser.writeXml(inventoryXml!!.item, File(pathFile))
-//
-//                        //writing
-////                        xmlString = xmlMapper.writeValueAsString(inventoryXml)
-//
-////                        println(xmlString)
-//
-////                        xmlMapper.writeValue(File(pathFile), inventoryXml)
-//
-//                        inventoryXml = xmlMapper.readValue(File(pathFile), InventoryXML::class.java)
-//                        println(inventoryXml)
+                        println(inventoryXml)
 
                         runOnUiThread {
                             Toast.makeText(
@@ -131,7 +120,6 @@ class NewProjectActivity : AppCompatActivity() {
                             ).show()
                             addButton.isEnabled = true
                         }
-
                     }
                 }
             }
@@ -140,6 +128,43 @@ class NewProjectActivity : AppCompatActivity() {
 
     fun onAddButtonClick(view: View) {
         addButton.isEnabled = false
+
+        val projectName = projectName.text.trim().toString()
+        var newInventory = Inventories(name = projectName, active = 1, lastAccessed = 0)
+
+        val itemsArray = inventoryXml?.item
+
+        Observable.fromCallable {
+            brickListDatabse = BrickListDatabase.getDatabase(this)
+        }.doOnNext {
+            brickListDatabse!!.inventoriesDao().insertInventories(newInventory)
+            val insertedInventoryID =
+                brickListDatabse!!.inventoriesDao().getInventoryByName(projectName).id
+//            Log.i("Inventory", newInventory.name)
+
+
+
+            if (itemsArray != null) {
+                for (item in itemsArray) {
+                    val typeID = brickListDatabse!!.itemTypeDao().getItemTypeByCode(item.itemType)
+                    brickListDatabse!!.inventoriesPartsDao()
+                        .insertInventoryParts(
+                            InventoriesParts(
+                                inventoryID = insertedInventoryID,
+                                typeID = typeID,
+                                itemID = item.itemId.toInt(),
+                                quantitiyInSet = item.qty,
+                                quantitiyInStore = 0,
+                                colorID = item.color,
+                                extra = item.extra.toInt()
+                            )
+                        )
+                }
+                Log.i("SUCCESS", "INVENTORY ADDED TO DATABASE!")
+            }
+
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+
     }
 
 

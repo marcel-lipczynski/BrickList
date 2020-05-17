@@ -78,39 +78,39 @@ class MainActivity : AppCompatActivity() {
 
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
 
-        val httpAsync = "http://fcds.cs.put.poznan.pl/MyWeb/BL/615.xml".httpGet()
-            .responseString { request, response, result ->
-                when (result) {
-                    is Result.Failure -> {
-                        val ex = result.getException()
-                        println(ex)
-                    }
-                    is Result.Success -> {
-                        val data = result.get()
-                        println(data)
-
-                        //reading value from Xml file fetched from server
-                        inventoryXml = xmlMapper.readValue(data, InventoryXML::class.java)
-
-                        //path to com.example.bricklist
-                        pathFile = filesDir.absolutePath + "/inventory3.xml"
-
-                        XmlParser.writeXml(inventoryXml!!.item, File(pathFile))
-
-                        //writing
-//                        xmlString = xmlMapper.writeValueAsString(inventoryXml)
-
-//                        println(xmlString)
-
-//                        xmlMapper.writeValue(File(pathFile), inventoryXml)
-
-                        inventoryXml = xmlMapper.readValue(File(pathFile), InventoryXML::class.java)
-                        println(inventoryXml)
-
-                    }
-                }
-            }
-        httpAsync.join()
+//        val httpAsync = "http://fcds.cs.put.poznan.pl/MyWeb/BL/615.xml".httpGet()
+//            .responseString { request, response, result ->
+//                when (result) {
+//                    is Result.Failure -> {
+//                        val ex = result.getException()
+//                        println(ex)
+//                    }
+//                    is Result.Success -> {
+//                        val data = result.get()
+//                        println(data)
+//
+////                        //reading value from Xml file fetched from server
+////                        inventoryXml = xmlMapper.readValue(data, InventoryXML::class.java)
+////
+////                        //path to com.example.bricklist
+////                        pathFile = filesDir.absolutePath + "/inventory3.xml"
+////
+////                        XmlParser.writeXml(inventoryXml!!.item, File(pathFile))
+////
+////                        //writing
+//////                        xmlString = xmlMapper.writeValueAsString(inventoryXml)
+////
+//////                        println(xmlString)
+////
+//////                        xmlMapper.writeValue(File(pathFile), inventoryXml)
+////
+////                        inventoryXml = xmlMapper.readValue(File(pathFile), InventoryXML::class.java)
+////                        println(inventoryXml)
+//
+//                    }
+//                }
+//            }
+//        httpAsync.join()
 
 
 
