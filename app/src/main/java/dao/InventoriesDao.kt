@@ -21,6 +21,9 @@ interface InventoriesDao {
     @Query("SELECT * FROM Inventories WHERE name = :inventoryName")
     fun getInventoryByName(inventoryName: String): Inventories
 
+    @Query("UPDATE Inventories SET active =:activeValue WHERE id = :id")
+    fun updateInventoryActiveValue(activeValue: Int, id: Int): Int
+
     @Insert
     fun insertInventories(vararg inventories: Inventories)
 
