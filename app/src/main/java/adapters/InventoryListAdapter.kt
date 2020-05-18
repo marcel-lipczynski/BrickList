@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bricklist.ListOfBricksActivity
 import com.example.bricklist.MainActivity
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.inventory_item_list_cell.view.*
 import java.util.logging.Handler
 
 class InventoryListAdapter(
-    private val inventories: ArrayList<Inventories>,
+    private var inventories: ArrayList<Inventories>,
     private val context: Context
 ) : RecyclerView.Adapter<InventoriesViewHolder>() {
 
@@ -51,15 +52,20 @@ class InventoryListAdapter(
                 holder.inventoryItemLayout.context.startActivity(i)
             }
         }
-
-
+        
         holder.archiveInventory.setOnClickListener{view->
             val activeValue = if(holder.archiveInventory.isChecked) 0 else 1
             Observable.fromCallable {
                 val brickListDatabase = BrickListDatabase.getDatabase(context)
                 brickListDatabase.inventoriesDao().updateInventoryActiveValue(activeValue, inventories[position].id)
-                inventories[position] = brickListDatabase.inventoriesDao().getInventoryById(inventories[position].id)
-//                adapter.notifyDataSetChanged()
+
+                val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
+                inventories = (if (sharedPrefs.getBoolean("archive", false)) {
+                    brickListDatabase.inventoriesDao().getAllActiveInventories()
+                } else {
+                    brickListDatabase.inventoriesDao().getAllInventories()
+                }) as ArrayList<Inventories>
+
                 android.os.Handler(context.mainLooper).post{
                     adapter.notifyItemChanged(position)
                 }
