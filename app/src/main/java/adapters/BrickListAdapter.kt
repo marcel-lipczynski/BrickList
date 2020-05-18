@@ -13,7 +13,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bricklist.R
+import database.BrickListDatabase
 import entities.BrickItem
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.brick_item_list_cell.view.*
 
 class BrickListAdapter(private val brickItems: ArrayList<BrickItem>, private val context: Context) :
@@ -45,6 +49,8 @@ class BrickListAdapter(private val brickItems: ArrayList<BrickItem>, private val
         holder.brickColor.text = brickItems[position].brickColor
         holder.bricksQuantity.text =
             "${brickItems[position].actualBrickQuantity} of ${brickItems[position].brickQuantity}"
+
+
         holder.plus.setOnClickListener {
             if (brickItems[position].actualBrickQuantity + 1 <= brickItems[position].brickQuantity) {
                 brickItems[position].actualBrickQuantity += 1
@@ -56,6 +62,17 @@ class BrickListAdapter(private val brickItems: ArrayList<BrickItem>, private val
             }
             holder.bricksQuantity.text =
                 "${brickItems[position].actualBrickQuantity} of ${brickItems[position].brickQuantity}"
+
+            Observable.fromCallable {
+                val brickListDatabase = BrickListDatabase.getDatabase(context)
+                brickListDatabase.inventoriesPartsDao().updateQuantityInStoreById(
+                    brickItems[position].actualBrickQuantity,
+                    brickItems[position].id
+                )
+            }.doOnNext {
+            }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+
+
         }
 
         holder.minus.setOnClickListener {
@@ -69,10 +86,20 @@ class BrickListAdapter(private val brickItems: ArrayList<BrickItem>, private val
             }
             holder.bricksQuantity.text =
                 "${brickItems[position].actualBrickQuantity} of ${brickItems[position].brickQuantity}"
+
+            Observable.fromCallable {
+                val brickListDatabase = BrickListDatabase.getDatabase(context)
+                brickListDatabase.inventoriesPartsDao().updateQuantityInStoreById(
+                    brickItems[position].actualBrickQuantity,
+                    brickItems[position].id
+                )
+            }.doOnNext {
+            }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+
         }
+
+
     }
-
-
 }
 
 

@@ -47,8 +47,8 @@ class ListOfBricksActivity : AppCompatActivity() {
                 val brickName = brickListDatabase?.partsDao()?.getPartNameByPartCode(part.itemID)
                 //itemId z InventoriesParts to inaczej Code w tabeli Parts
                 brickListItems.add(
-                    BrickItem(
-                        "",
+                    BrickItem(id = part.id,
+                        imagePath = "",
                         brickQuantity = part.quantitiyInSet,
                         actualBrickQuantity = part.quantitiyInStore,
                         brickColor = colorName,

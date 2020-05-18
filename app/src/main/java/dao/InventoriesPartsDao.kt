@@ -15,6 +15,9 @@ interface InventoriesPartsDao {
     @Query("SELECT * FROM InventoriesParts WHERE id = :inventoryPartId")
     fun getInventoryPartById(inventoryPartId: Int): InventoriesParts
 
+    @Query("UPDATE InventoriesParts SET QuantityInStore = :newQuantity WHERE id = :id")
+    fun updateQuantityInStoreById(newQuantity: Int, id: Int): Int
+
     @Insert
     fun insertInventoryParts(vararg inventoryParts: InventoriesParts)
 
