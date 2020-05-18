@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         inventoriesRecyclerView.layoutManager = LinearLayoutManager(this)
 
+
         val createNewProjectFab: View = findViewById(R.id.addProject)
         createNewProjectFab.setOnClickListener {
             startActivity(Intent(this, NewProjectActivity::class.java))
@@ -39,10 +40,10 @@ class MainActivity : AppCompatActivity() {
             brickListDatabase = BrickListDatabase.getDatabase(this)
         }.doOnNext {
             val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-            if (sharedPrefs.getBoolean("archive", false)) {
-                inventories = brickListDatabase!!.inventoriesDao().getAllActiveInventories()
+            inventories = if (sharedPrefs.getBoolean("archive", false)) {
+                brickListDatabase!!.inventoriesDao().getAllActiveInventories()
             } else {
-                inventories = brickListDatabase!!.inventoriesDao().getAllInventories()
+                brickListDatabase!!.inventoriesDao().getAllInventories()
             }
 
             runOnUiThread {
