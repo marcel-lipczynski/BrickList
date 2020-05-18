@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import database.BrickListDatabase
 import io.reactivex.Observable
@@ -37,7 +38,13 @@ class MainActivity : AppCompatActivity() {
         Observable.fromCallable {
             brickListDatabase = BrickListDatabase.getDatabase(this)
         }.doOnNext {
-            inventories = brickListDatabase!!.inventoriesDao().getAllInventories()
+            val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+            if (sharedPrefs.getBoolean("archive", false)) {
+                inventories = brickListDatabase!!.inventoriesDao().getAllActiveInventories()
+            } else {
+                inventories = brickListDatabase!!.inventoriesDao().getAllInventories()
+            }
+
             runOnUiThread {
                 inventoriesRecyclerView.adapter =
                     InventoryListAdapter(inventories!! as ArrayList<Inventories>, this)
@@ -53,7 +60,13 @@ class MainActivity : AppCompatActivity() {
         Observable.fromCallable {
             brickListDatabase = BrickListDatabase.getDatabase(this)
         }.doOnNext {
-            inventories = brickListDatabase!!.inventoriesDao().getAllInventories()
+            val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+            if (sharedPrefs.getBoolean("archive", false)) {
+                inventories = brickListDatabase!!.inventoriesDao().getAllActiveInventories()
+            } else {
+                inventories = brickListDatabase!!.inventoriesDao().getAllInventories()
+            }
+
             runOnUiThread {
                 inventoriesRecyclerView.adapter =
                     InventoryListAdapter(inventories!! as ArrayList<Inventories>, this)
