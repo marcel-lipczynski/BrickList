@@ -40,6 +40,7 @@ class InventoryListAdapter(
             Toast.makeText(context, inventories[position].toString(), Toast.LENGTH_LONG).show()
             val i = Intent(context, ListOfBricksActivity::class.java)
             i.putExtra("inventoryId", inventories[position].id)
+            i.putExtra("inventoryName", inventories[position].name)
             holder.inventoryItemLayout.context.startActivity(i)
         }
 

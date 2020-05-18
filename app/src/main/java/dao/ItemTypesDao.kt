@@ -19,6 +19,9 @@ interface ItemTypesDao {
     @Query("SELECT id FROM ItemTypes WHERE Code =:code")
     fun getItemTypeByCode(code: String): Int
 
+    @Query("SELECT Code FROM ItemTypes WHERE id = :typeId")
+    fun getItemTypeByTypeId(typeId: Int): String
+
     @Insert
     fun insertItemType(vararg itemType: ItemTypes)
 
