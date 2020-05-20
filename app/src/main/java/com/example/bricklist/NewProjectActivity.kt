@@ -115,13 +115,24 @@ class NewProjectActivity : AppCompatActivity() {
                         inventoryXml = xmlMapper.readValue(data, InventoryXML::class.java)
                         println(inventoryXml)
 
+                        val existingName = brickListDatabse?.inventoriesDao()?.getInventoryByName(projectName.text.toString().trim())
+
                         runOnUiThread {
-                            Toast.makeText(
-                                this,
-                                "Project found - ADD button enabled",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            addButton.isEnabled = true
+                            if(existingName != null){
+                                Toast.makeText(
+                                    this,
+                                    "Project with given name already exists",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } else{
+                                Toast.makeText(
+                                    this,
+                                    "Project found - ADD button enabled",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                addButton.isEnabled = true
+                            }
+
                         }
                     }
                 }
