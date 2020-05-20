@@ -46,7 +46,7 @@ class ListOfBricksActivity : AppCompatActivity() {
 //            brickListItems = brickListDatabase!!.
 
             inventoriesParts =
-                brickListDatabase!!.inventoriesPartsDao().getAllPartsForInventory(inventoryId!!)
+                brickListDatabase!!.inventoriesPartsDao().getAllPartsForInventoryOrdered(inventoryId!!)
 
             for (part in inventoriesParts!!) {
 
