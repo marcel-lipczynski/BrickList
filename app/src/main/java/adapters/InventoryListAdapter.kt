@@ -45,7 +45,7 @@ class InventoryListAdapter(
 
         if(inventories[position].active == 1){
             holder.inventoryItemLayout.setOnClickListener{
-                Toast.makeText(context, inventories[position].toString(), Toast.LENGTH_LONG).show()
+//                Toast.makeText(context, inventories[position].toString(), Toast.LENGTH_LONG).show()
                 val i = Intent(context, ListOfBricksActivity::class.java)
                 i.putExtra("inventoryId", inventories[position].id)
                 i.putExtra("inventoryName", inventories[position].name)

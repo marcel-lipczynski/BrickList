@@ -9,7 +9,7 @@ import entities.Inventories
 @Dao
 interface InventoriesDao {
 
-    @Query("SELECT * FROM Inventories")
+    @Query("SELECT * FROM Inventories ORDER BY Active DESC")
     fun getAllInventories(): List<Inventories>
 
     @Query("SELECT * FROM Inventories WHERE id IN(:inventoriesIDs)")
