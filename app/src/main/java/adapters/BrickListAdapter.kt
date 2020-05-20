@@ -41,6 +41,10 @@ class BrickListAdapter(private val brickItems: ArrayList<BrickItem>, private val
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BrickListViewHolder, position: Int) {
 
+        val firstURL = "https://www.lego.com/service/bricks/5/2/${brickItems[position].code}"
+        val secondURL = "http://img.bricklink.com/P/${brickItems[position].colorID}/${brickItems[position].itemID}.gif"
+        val thirdURL = "https://www.bricklink.com/PL/${brickItems[position].itemID}.jpg"
+
         if (brickItems[position].actualBrickQuantity == brickItems[position].brickQuantity) {
             holder.brickItemLinearLayout.setBackgroundColor(Color.GREEN)
         } else {
@@ -48,10 +52,10 @@ class BrickListAdapter(private val brickItems: ArrayList<BrickItem>, private val
         }
 
         Glide.with(context)
-            .load("sdsdsds").error(
+            .load(firstURL).error(
                 Glide.with(context)
-                    .load("https://images.genius.com/c745ae8eec9dd6000f52a07aa84e4457.1000x1000x1.jpg")
-                    .error(Glide.with(context).load("hello"))
+                    .load(secondURL)
+                    .error(Glide.with(context).load(thirdURL))
             )
             .into(holder.brickImage)
 

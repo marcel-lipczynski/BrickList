@@ -46,16 +46,21 @@ class ListOfBricksActivity : AppCompatActivity() {
 //            brickListItems = brickListDatabase!!.
 
             inventoriesParts =
-                brickListDatabase!!.inventoriesPartsDao().getAllPartsForInventoryOrdered(inventoryId!!)
+                brickListDatabase!!.inventoriesPartsDao()
+                    .getAllPartsForInventoryOrdered(inventoryId!!)
 
             for (part in inventoriesParts!!) {
 
                 val colorName = brickListDatabase!!.colorsDao().getColorByCodeFromXML(part.colorID)
                 val brickName = brickListDatabase?.partsDao()?.getPartNameByPartCode(part.itemID)
                 val itemType = brickListDatabase!!.itemTypeDao().getItemTypeByTypeId(part.typeID)
+
+                val codeFromCodesTable = brickListDatabase!!.codesDao()
+                    .getCodeByItemIDandColorID(part.itemID, part.colorID)
                 //itemId z InventoriesParts to inaczej Code w tabeli Parts
                 brickListItems.add(
-                    BrickItem(id = part.id,
+                    BrickItem(
+                        id = part.id,
                         imagePath = "",
                         brickQuantity = part.quantitiyInSet,
                         actualBrickQuantity = part.quantitiyInStore,
@@ -63,7 +68,8 @@ class ListOfBricksActivity : AppCompatActivity() {
                         brickColor = colorName,
                         brickName = brickName ?: part.itemID,
                         itemID = part.itemID,
-                        itemType = itemType
+                        itemType = itemType,
+                        code = codeFromCodesTable
                     )
                 )
             }

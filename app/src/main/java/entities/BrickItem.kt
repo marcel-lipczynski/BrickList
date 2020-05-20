@@ -9,5 +9,6 @@ data class BrickItem(
     val brickColor: String,
     val brickName: String?,
     val itemID: String,
-    val itemType: String
+    val itemType: String,
+    val code: Int
 )
