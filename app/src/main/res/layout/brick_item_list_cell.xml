@@ -17,7 +17,6 @@
             android:layout_width="143dp"
             android:maxWidth="143dp"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/ic_launcher_foreground"
             android:contentDescription="@string/brick_image"/>
 
         <LinearLayout

@@ -1,6 +1,7 @@
 package com.example.bricklist
 
 import adapters.InventoryListAdapter
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private var inventories: List<Inventories>? = null
 
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,42 +40,33 @@ class MainActivity : AppCompatActivity() {
 
         Observable.fromCallable {
             brickListDatabase = BrickListDatabase.getDatabase(this)
-        }.doOnNext {
-            val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-            inventories = if (sharedPrefs.getBoolean("archive", false)) {
-                brickListDatabase!!.inventoriesDao().getAllActiveInventories()
-            } else {
+            inventories =
                 brickListDatabase!!.inventoriesDao().getAllInventories()
-            }
-
-            runOnUiThread {
+        }.doOnNext {
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{
+            run{
                 inventoriesRecyclerView.adapter =
                     InventoryListAdapter(inventories!! as ArrayList<Inventories>, this)
             }
-
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+        }
 
     }
 
+    @SuppressLint("CheckResult")
     override fun onResume() {
         super.onResume()
 
         Observable.fromCallable {
             brickListDatabase = BrickListDatabase.getDatabase(this)
+            inventories =
+                brickListDatabase!!.inventoriesDao().getAllInventories()
         }.doOnNext {
-            val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-            if (sharedPrefs.getBoolean("archive", false)) {
-                inventories = brickListDatabase!!.inventoriesDao().getAllActiveInventories()
-            } else {
-                inventories = brickListDatabase!!.inventoriesDao().getAllInventories()
-            }
-
-            runOnUiThread {
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe{
+            run{
                 inventoriesRecyclerView.adapter =
                     InventoryListAdapter(inventories!! as ArrayList<Inventories>, this)
             }
-
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
