@@ -45,6 +45,7 @@ class BrickListAdapter(private val brickItems: ArrayList<BrickItem>, private val
         Glide.with(context)
             .load("https://images.genius.com/c745ae8eec9dd6000f52a07aa84e4457.1000x1000x1.jpg")
             .into(holder.brickImage)
+
         holder.brickName.text = brickItems[position].brickName
         holder.brickColor.text = brickItems[position].brickColor
         holder.bricksQuantity.text =
